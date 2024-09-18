@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-load_dotenv()
+load_dotenv(override=True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -127,6 +127,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = '/media/'  # Обязательные слеши в начале и конце
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL[1:-1])  # Передача папки без слешей
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
