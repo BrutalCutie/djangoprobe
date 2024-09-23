@@ -2,6 +2,10 @@
 
 #### Для виртуального окружения использовался Poetry 
 
+### Чувствительные данные
+В проекте присутствует .env.sample . Необходимо создать копию файла с названием .env
+ и заполнить данными, изходя из вашей базы данных 
+
 ### Клонирование проекта
 ```commandline
 git clone https://github.com/BrutalCutie/djangoprobe.git
@@ -13,8 +17,9 @@ git clone https://github.com/BrutalCutie/djangoprobe.git
 3. ```poetry install``` 
 
 
-
-
-
 ## Запуск
 ```python manage.py runserver```
+
+## Кастомные команды
+**add_fixtures** - наполнение тестовыми данными из файла fixture.json. Не волнуйтесь если у вы
+его случайно удалите, он будет создан из бэкапа
