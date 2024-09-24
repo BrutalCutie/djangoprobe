@@ -12,3 +12,16 @@
     {% endif %}
 
 </ul>
+
+{% if request.path == '/' %}
+    {% if len_categories > 0 %}
+        <div class="text-center">
+            <h1>↑</h1>
+            <h3>Выберите категорию</h3>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h1>Здесь должны быть категории, но по какой-то причине они отсутствуют</h1>
+        </div>
+    {% endif %}
+{% endif %}

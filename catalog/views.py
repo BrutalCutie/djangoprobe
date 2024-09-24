@@ -4,7 +4,10 @@ from catalog.models import Category, Product
 
 def index(request):
     categories = Category.objects.all()
-    context = {"categories": categories}
+    context = {"categories": categories,
+               "len_categories": len(categories)}
+
+    print(context['len_categories'])
     return render(request, 'catalog/index.html', context=context)
 
 
