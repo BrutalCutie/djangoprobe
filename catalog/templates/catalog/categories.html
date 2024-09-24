@@ -1,0 +1,14 @@
+<ul class="nav justify-content-center mt-5 mb-5">
+    {% for category in categories %}
+        <li class="nav-item">
+            <a class="nav-link" href="/details/{{category.pk}}"><h3>{{category.name}}</h3></a>
+        </li>
+    {% endfor %}
+
+    {% if request.path != '/' %}
+    <li class="nav-item">
+        <a class="nav-link" style="background-color: rgba(0, 255, 76, 0.301); border-radius: 20px;" href="/"><h4>Назад</h4></a>
+    </li>
+    {% endif %}
+
+</ul>
