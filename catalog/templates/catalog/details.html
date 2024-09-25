@@ -19,35 +19,9 @@
                     <h5 class="card-title">{{good.name}}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{good.price}} RUB</h6>
                     <p class="card-text">{{good.descr|truncatechars:100}}</p>
-                    
-                    {% if good.descr|length > 100 %}
-                        <!-- Триггер для всплывающего окна -->
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{good.id}}">
-                            Подробнее
-                        </button>
-                        
-                        <!-- Всплывающее окно -->
-                        <div class="modal fade" id="staticBackdrop{{good.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Подробно</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h2>{{good.name}}</h2>
-                                <p>{{good.descr}}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                    
+
                 </div>
-                <a href="#" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">В корзину</a>
+                <a href="/good/{{good.id}}" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Подробно</a>
             </div>
         </div>
     {% endfor %}

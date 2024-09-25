@@ -11,5 +11,35 @@
 
 {% include 'catalog/categories.html' %}
 
+{% if len_rand_products > 0 %}
+    <div class="row">
+        <div class="m-5 text-center">
+            <h3>Вас могут заинтересовать эти товары</h3>
+            <h1>↓</h1>
+        </div>
+        {% for rand_product in rand_products %}
+            <div class="col-3">
+                <div class="card h-100">
+                    {% if rand_product.img.name == '' %}
+                        <img src="/media/photos/without_photo.png" alt="{{rand_product.name}}" class="card-img-top">
+                    {% else %}
+                        <img src="/media/{{rand_product.img}}" alt="{{rand_product.name}}" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{rand_product.name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{rand_product.price}} RUB</h6>
+                        <p class="card-text">{{rand_product.descr|truncatechars:100}}</p>
+
+                    </div>
+                    <a href="/good/{{rand_product.id}}" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Подробно</a>
+                </div>
+            </div>
+
+
+        {% endfor %}
+    </div>
+
+{% endif %}
+
 
 {% endblock %}
