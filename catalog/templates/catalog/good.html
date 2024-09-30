@@ -1,0 +1,29 @@
+{% extends 'catalog/base.html' %}
+
+
+{% block content %}
+
+{% include 'catalog/categories.html' %}
+
+    <div class="row">
+        <div class="col-3">
+            <div class="card h-100">
+                {% if product.img.name == '' %}
+                    <img src="/media/photos/without_photo.png" alt="{{product.name}}" class="card-img-top">
+                {% else %}
+                    <img src="/media/{{product.img}}" alt="{{product.name}}" class="card-img-top">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{product.price}} RUB</h6>
+                    <p class="card-text">{{product.descr}}</p>
+
+                </div>
+                <a href="#" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Добавить в корзину</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
