@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from django.views.generic.edit import UpdateView, CreateView
-from django.views.generic import ListView, DeleteView, DetailView
+import time
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, TemplateView
 from catalog.models import Product
-import random
 
 
 class ProductsListView(ListView):
@@ -25,8 +24,9 @@ class ProductDetailView(DetailView):
     template_name = "catalog/good.html"
 
 
-def contacts(request):
-    if request.method == 'POST':
-        return render(request, 'catalog/success.html')
+class ContactsTemplateView(TemplateView):
+    template_name = 'catalog/contacts.html'
 
-    return render(request, 'catalog/contacts.html')
+
+class SuccessTemplateView(TemplateView):
+    template_name = 'catalog/success.html'

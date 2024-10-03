@@ -47,7 +47,7 @@
             </div>
             <div class="col-2"></div>
             <div class="col-4">
-                <form action="" method="post">
+                <form action="">
                     {% csrf_token %}
 
                     <div class="card">
@@ -76,9 +76,9 @@
                             </div>
 
                             <div class="mt-2">
-                                <button class="btn btn-outline-primary" type="submit">
+                                <a class="btn btn-outline-primary" href="{% url 'catalog:success' %}">
                                     Отправить
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
