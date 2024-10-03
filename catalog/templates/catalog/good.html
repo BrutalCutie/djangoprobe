@@ -3,9 +3,7 @@
 
 {% block content %}
 
-{% include 'catalog/categories.html' %}
-
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-3">
             <div class="card h-100">
                 {% if product.img.name == '' %}
@@ -17,9 +15,10 @@
                     <h5 class="card-title">{{product.name}}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{product.price}} RUB</h6>
                     <p class="card-text">{{product.descr}}</p>
+                    <p class="card-subtitle text-body-secondary">Категория: {{product.category}}</p>
 
                 </div>
-                <a href="#" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Добавить в корзину</a>
+                <a href="{% url 'catalog:home' %}" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Добавить в корзину</a>
             </div>
         </div>
     </div>

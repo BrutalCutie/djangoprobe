@@ -1,26 +1,28 @@
 from django.shortcuts import render
-from catalog.models import Category, Product
+from django.views.generic.edit import UpdateView, CreateView
+from django.views.generic import ListView, DeleteView, DetailView
+from catalog.models import Product
 import random
 
 
-def index(request):
-    categories = Category.objects.all()
-    rand_products: list = list(Product.objects.all())
-    random.shuffle(rand_products)
+class ProductsListView(ListView):
+    model = Product
+    template_name = 'catalog/index.html'
+    context_object_name = 'products'
 
-    if len(rand_products) > 3 and rand_products:
-        rand_products = rand_products[0:3]
-    else:
-        rand_products = rand_products[:len(rand_products)]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    context = {
-        "categories": categories,
-        "len_categories": len(categories),
-        "rand_products": rand_products,
-        "len_rand_products": len(rand_products)
+        context['add_data'] = {
+            "len_products": len(Product.objects.all()),
                }
 
-    return render(request, 'catalog/index.html', context=context)
+        return context
+
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = "catalog/good.html"
 
 
 def contacts(request):
@@ -28,15 +30,3 @@ def contacts(request):
         return render(request, 'catalog/success.html')
 
     return render(request, 'catalog/contacts.html')
-
-
-def get_category_items(request, pk):
-    categories = Category.objects.all()
-    context = {"categories": categories,
-               "goods": Product.objects.filter(category=pk)}
-    return render(request, 'catalog/details.html', context=context)
-
-
-def get_item(request, pk):
-    context = {"product": Product.objects.get(id=pk)}
-    return render(request, 'catalog/good.html', context=context)
