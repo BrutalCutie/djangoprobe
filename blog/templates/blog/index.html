@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Блоги{% endblock %}
+
+{% block content %}
+
+<div class="container row m-3">
+    <div class="list-group align-items-center">
+        <div class="col-2">
+            <a href="{% url 'blog:new_blog' %}" class="list-group-item btn btn-warning">Написать статью</a>
+        </div>
+
+    </div>
+</div>
+
+<div class="list-group align-items-center">
+    {% if blogs|length == 0 %}
+        <h2>Пока что здесь нет статей. Ваша может стать первой!</h2>
+    {% endif %}
+
+    {% for blog in blogs %}
+
+    <div class="col-4 m-3">
+        <div class="card" style="max-width: 500px">
+            {% if blog.preview == '' %}
+                <img src="/media/photos/without_photo.png" alt="{{blog.title}}" class="card-img-top">
+            {% else %}
+                <img src="/media/{{blog.preview}}" alt="{{blog.title}}" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{blog.title}}</h5>
+                <p class="card-text">{{blog.inner|truncatechars:100}}</p>
+            </div>
+            <a href="{% url 'blog:blog_detail' blog.pk %}" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Читать</a>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+

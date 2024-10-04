@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {{blog.title}}
+{% endblock %}
+
+{% block content %}
+    <div class="col-10 mt-5">
+        <div class="card">
+            {% if 'delete' in request.path %}
+                <div style="background-color: rgba(236, 32, 32, 0.219)">
+                    <form method="post">
+                        {% csrf_token %}
+                        <h3 class="text-center">Вы уверены, что хотите удалить статью?</h3>
+                        <ul>
+                            <li class="d-flex justify-content-evenly">
+                                <button class="btn btn-danger" type="submit">Да</button>
+                                <a href="{% url 'blog:home' %}" class="btn btn-primary">Нет</a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            {% endif %}
+            <h1 class="m-5 text-center">{{blog.title}}</h1>
+            {% if blog.preview == '' %}
+                <img src="/media/photos/without_photo.png" alt="{{blog.title}}" class="card-img-top">
+            {% else %}
+                <img src="/media/{{blog.preview}}" alt="{{blog.title}}" class="card-img-top">
+            {% endif %}
+
+            <p class="m-3">{{blog.inner}}</p>
+
+            {% if not 'delete' in request.path %}
+                <ul>
+                    <li class="d-flex justify-content-between">
+                        <a href="{% url 'blog:blog_update' blog.pk %}" class="btn btn-warning">Изменить</a>
+                        <a href="{% url 'blog:home' %}" class="btn btn-primary">Назад</a>
+                        <a href="{% url 'blog:blog_delete' blog.pk %}" class="btn btn-danger">Удалить</a>
+                    </li>
+                </ul>
+            {% endif %}
+
+        </div>
+
+
+    </div>
+{% endblock %}
