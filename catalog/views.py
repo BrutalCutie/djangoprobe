@@ -1,42 +1,32 @@
-from django.shortcuts import render
-from catalog.models import Category, Product
-import random
+import time
+from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView, TemplateView
+from catalog.models import Product
 
 
-def index(request):
-    categories = Category.objects.all()
-    rand_products: list = list(Product.objects.all())
-    random.shuffle(rand_products)
+class ProductsListView(ListView):
+    model = Product
+    template_name = 'catalog/index.html'
+    context_object_name = 'products'
 
-    if len(rand_products) > 3 and rand_products:
-        rand_products = rand_products[0:3]
-    else:
-        rand_products = rand_products[:len(rand_products)]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    context = {
-        "categories": categories,
-        "len_categories": len(categories),
-        "rand_products": rand_products,
-        "len_rand_products": len(rand_products)
+        context['add_data'] = {
+            "len_products": len(Product.objects.all()),
                }
 
-    return render(request, 'catalog/index.html', context=context)
+        return context
 
 
-def contacts(request):
-    if request.method == 'POST':
-        return render(request, 'catalog/success.html')
-
-    return render(request, 'catalog/contacts.html')
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = "catalog/good.html"
 
 
-def get_category_items(request, pk):
-    categories = Category.objects.all()
-    context = {"categories": categories,
-               "goods": Product.objects.filter(category=pk)}
-    return render(request, 'catalog/details.html', context=context)
+class ContactsTemplateView(TemplateView):
+    template_name = 'catalog/contacts.html'
 
 
-def get_item(request, pk):
-    context = {"product": Product.objects.get(id=pk)}
-    return render(request, 'catalog/good.html', context=context)
+class SuccessTemplateView(TemplateView):
+    template_name = 'catalog/success.html'
