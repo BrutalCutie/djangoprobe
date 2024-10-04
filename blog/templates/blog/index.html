@@ -22,14 +22,15 @@
 
     <div class="col-4 m-3">
         <div class="card" style="max-width: 500px">
-            <h6 class="d-flex justify-content-end m-1">{{blog.views}} просмотров</h6>
+            <h6 class="d-flex justify-content-end m-1 text-body-secondary">{{blog.views}} просмотр(-ов)</h6>
+            <h3 class="card-title text-center">{{blog.title}}</h3>
             {% if blog.preview == '' %}
                 <img src="/media/photos/without_photo.png" alt="{{blog.title}}" class="card-img-top">
             {% else %}
                 <img src="/media/{{blog.preview}}" alt="{{blog.title}}" class="card-img-top">
             {% endif %}
             <div class="card-body">
-                <h5 class="card-title">{{blog.title}}</h5>
+
                 <p class="card-text">{{blog.inner|truncatechars:100}}</p>
             </div>
             <a href="{% url 'blog:blog_detail' blog.pk %}" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Читать</a>
