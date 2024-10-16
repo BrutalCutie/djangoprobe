@@ -17,21 +17,19 @@
             <div class="col-1"></div>
 
             <div class="col-2">
-                <button class="btn btn-primary btn-lg p-2" style="width: 200px">
-                    <a href="{% url 'catalog:home' %}" class="nav-link">Наше меню</a>
-                </button>
+                <a href="{% url 'catalog:home' %}" class="btn btn-primary btn-lg p-2" style="min-width: 13rem">Наше меню</a>
             </div>
 
             <div class="col-2">
-                <button class="btn btn-primary btn-lg p-2" style="width: 200px">
-                    <a href="{% url 'catalog:contacts' %}" class="nav-link">Контакты</a>
-                </button>
+                <a href="{% url 'catalog:contacts' %}" class="btn btn-primary btn-lg p-2" style="min-width: 13rem">Контакты</a>
             </div>
 
             <div class="col-2">
-                <button class="btn btn-primary btn-lg p-2" style="width: 200px">
-                    <a href="{% url 'blog:home' %}" class="nav-link">Наш блог</a>
-                </button>
+                <a href="{% url 'blog:home' %}" class="btn btn-primary btn-lg p-2" style="min-width: 13rem">Наш блог</a>
+            </div>
+
+            <div class="col-2">
+                <a href="{% url 'catalog:product_new' %}" class="btn btn-outline-danger btn-lg p-2" style="min-width: 13rem">➕ Добавить свой товар</a>
             </div>
         </div>
     </div>

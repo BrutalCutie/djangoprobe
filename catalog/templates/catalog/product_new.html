@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3"></div>
+
+        <div class="col-6">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                {% if 'product_new' in request.path %}
+                <button type="submit" class="btn btn-success">Добавить товар</button>
+                {% else %}
+                <button type="submit" class="btn btn-success">Изменить</button>
+                {% endif %}
+            </form>
+
+
+
+        </div>
+
+        <div class="col-3"></div>
+    </div>
+
+</div>
+
+
+{% endblock %}
