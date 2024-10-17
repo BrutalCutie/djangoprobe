@@ -9,6 +9,9 @@ class ProductsListView(ListView):
     template_name = 'catalog/index.html'
     context_object_name = 'products'
 
+    def get_queryset(self):
+        return Product.objects.filter(checkbox=True)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
