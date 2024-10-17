@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from catalog.models import Product
-from .forms import ProductForm
+from catalog.models import Product, Category
+from .forms import ProductForm, CategoryForm
 
 
 class ProductsListView(ListView):
@@ -52,34 +52,33 @@ class SuccessTemplateView(TemplateView):
     template_name = 'catalog/success.html'
 
 
-# TODO реализовать CRUD категории
-
 class CategoryListView(ListView):
-    model = Product
-    template_name = 'catalog/index.html'
-    context_object_name = 'products'
+    model = Category
+    template_name = 'catalog/category_list.html'
+    context_object_name = 'categories'
 
 
 class CategoryDetailView(DetailView):
-    model = Product
-    template_name = "catalog/good.html"
+    model = Category
+    template_name = 'catalog/category_detail.html'
+    context_object_name = 'category'
 
 
 class CategoryCreateView(CreateView):
-    model = Product
-    form_class = ProductForm
-    template_name = 'catalog/product_new.html'
-    success_url = reverse_lazy('catalog:home')
+    model = Category
+    form_class = CategoryForm
+    template_name = 'catalog/category_new.html'
+    success_url = reverse_lazy('catalog:category_list')
 
 
 class CategoryUpdateView(UpdateView):
-    model = Product
-    form_class = ProductForm
-    template_name = 'catalog/product_new.html'
-    success_url = reverse_lazy('catalog:home')
+    model = Category
+    form_class = CategoryForm
+    template_name = 'catalog/category_new.html'
+    success_url = reverse_lazy('catalog:category_list')
 
 
 class CategoryDeleteView(DeleteView):
-    model = Product
-    template_name = 'catalog/product_delete_confirm.html'
-    success_url = reverse_lazy('catalog:home')
+    model = Category
+    template_name = 'catalog/category_delete_confirm.html'
+    success_url = reverse_lazy('catalog:category_list')

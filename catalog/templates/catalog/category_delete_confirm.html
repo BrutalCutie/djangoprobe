@@ -1,0 +1,29 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Удалить "{{category.name}}"?{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3"></div>
+
+        <div class="col-6">
+            <h1>Желаете удалить категорию "{{category.name}}" ?</h1>
+            <form method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">Удалить</button>
+                <a href="{% url 'catalog:category_list' %}" class="btn btn-primary">Назад</a>
+            </form>
+
+
+
+        </div>
+
+        <div class="col-3"></div>
+    </div>
+
+</div>
+
+
+{% endblock %}
