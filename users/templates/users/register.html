@@ -1,9 +1,9 @@
-{% extends 'students/base.html' %}
+{% extends 'catalog/base.html' %}
 
 {% block title %}Регистрация{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-5">
     <h1>Регистрация</h1>
     <form method="post">
         {% csrf_token %}

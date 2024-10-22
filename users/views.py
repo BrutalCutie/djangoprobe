@@ -9,14 +9,17 @@ from config.settings import EMAIL_HOST_USER
 class RegisterView(CreateView):
     template_name = 'users/register.html'
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('students:home')
+    success_url = reverse_lazy('catalog:home')
 
     def form_valid(self, form):
         user = form.save()
-        self.send_welcome_email(user.email)
+        self.send_welcome_email(user)
         return super().form_valid(form)
 
-    def send_welcome_email(self, user_email):
+    @staticmethod
+    def send_welcome_email(user_data):
+        user_email = user_data.email
+
         title = "Вы успешно прошли регистрацию!"
         message = "И мы вас с этим безумно поздравляем!"
         recipient_list = [user_email,]
