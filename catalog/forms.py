@@ -19,7 +19,6 @@ class ProductForm(forms.ModelForm):
 
     BAD_WORDS_STR = ", ".join(BAD_WORDS)
 
-
     class Meta:
         model = Product
         fields = ["category", "name", "descr", "img", "price", 'checkbox']

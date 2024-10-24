@@ -21,4 +21,3 @@ urlpatterns = [
     path('category_list/', views.CategoryListView.as_view(), name='category_list'),
 
 ]
-
