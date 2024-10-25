@@ -24,6 +24,9 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['name']
+        permissions = [
+            ('can_unpublish_product', 'Снимать товар с публикации'),
+        ]
 
 
 class Category(models.Model):

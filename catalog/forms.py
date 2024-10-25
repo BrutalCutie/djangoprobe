@@ -21,7 +21,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ["category", "name", "descr", "img", "price", 'checkbox']
+        fields = ["category", "name", "descr", "img", "price",]
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -69,10 +69,6 @@ class ProductForm(forms.ModelForm):
 
             if contains_badword:
                 break
-
-
-
-
 
 
 class CategoryForm(forms.ModelForm):

@@ -14,8 +14,6 @@ class BlogListView(ListView):
         return queryset.filter(is_active=True)
 
 
-
-
 class BlogDetailView(DetailView):
     model = BlogModel
     template_name = 'blog/blog_detail.html'
@@ -49,7 +47,3 @@ class BlogDeleteView(DeleteView):
     context_object_name = 'blog'
     template_name = "blog/blog_detail.html"
     success_url = reverse_lazy('blog:home')
-
-
-class TestView(TemplateView):
-    template_name = 'blog/index.html'

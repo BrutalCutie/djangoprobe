@@ -3,7 +3,7 @@
 {% block title %}Детали "{{product.name}}"{% endblock %}
 {% block content %}
 
-    <div class="row mt-5">
+<div class="row mt-5" xmlns="http://www.w3.org/1999/html">
         <div class="col-4"></div>
 
         <div class="col-4">
@@ -19,8 +19,13 @@
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{product.price}} RUB</h6>
                     <p class="card-text">{{product.descr}}</p>
                     <p class="card-subtitle text-body-secondary">Категория: {{product.category}}</p>
-
+                    <p>{{product.checkbox}}</p>
                 </div>
+                {% if product.checkbox %}
+                    <a href="{% url 'catalog:publicationswitch' product.pk %}" class="btn" style="border-radius: 0px">Снять с публикации</a>
+                {% else %}
+                    <a href="{% url 'catalog:publicationswitch' product.pk %}" class="btn" style="border-radius: 0px">Установить на показ</a>
+                {% endif %}
                 <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-warning" style="border-radius: 0px">Изменить</a>
                 <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Удалить</a>
             </div>
