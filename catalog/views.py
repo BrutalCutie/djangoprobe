@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from catalog.models import Product, Category
 from .forms import ProductForm, CategoryForm
 
@@ -49,19 +49,27 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     template_name = "catalog/good.html"
 
 
-class ProductPublicateSwitch(LoginRequiredMixin, DetailView):
+class ProductPublicateSwitch(LoginRequiredMixin, UpdateView):
     model = Product
-    template_name = "catalog/good.html"
+    template_name = "catalog/product_switch_confirm.html"
+    fields = []
 
-    def get_context_data(self, **kwargs):
-        checkbox = self.object.checkbox
+    def post(self, request, *args, **kwargs):
+
+        product = get_object_or_404(Product, pk=kwargs.get('pk'))
+
+        if not request.user.has_perm('catalog.can_unpublish_product'):
+            return HttpResponseForbidden('У Вас нет прав для изменения')
+
+        checkbox = product.checkbox
         if checkbox:
-            self.object.checkbox = False
+            product.checkbox = False
         else:
-            self.object.checkbox = True
-        self.object.save()
+            product.checkbox = True
 
-        return super().get_context_data(**kwargs)
+        product.save()
+
+        return redirect("catalog:good", pk=product.pk)
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -69,6 +77,14 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     form_class = ProductForm
     template_name = 'catalog/product_new.html'
     success_url = reverse_lazy('catalog:home')
+
+    def form_valid(self, form):
+        product = form.save()
+        user = self.request.user
+        product.owner = user
+        product.save()
+
+        return super().form_valid(form)
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -79,6 +95,26 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse("catalog:good", kwargs={'pk': self.object.pk})
 
+    def get(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=kwargs.get('pk'))
+        user = request.user
+
+        # Контрольный список на группу модератора или владельца карточки
+        perms_control = [
+            user.has_perm('catalog.can_unpublish_product'),
+            user.pk == product.owner.pk,
+        ]
+
+        # Если есть хотябы что-то одно(права или владелец карточки) - позволить удалить
+        if not any(perms_control):
+            return HttpResponseForbidden(f'У Вас нет прав для изменения')
+
+        return super().get(self, request, *args, **kwargs)
+
+
+
+
+
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
@@ -86,10 +122,17 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('catalog:home')
 
     def post(self, request, *args, **kwargs):
-
         product = get_object_or_404(Product, pk=kwargs.get('pk'))
+        user = request.user
 
-        if not request.user.has_perm('catalog.can_unpublish_product'):
+        # Контрольный список на группу модератора или владельца карточки
+        perms_control = [
+            user.has_perm('catalog.can_unpublish_product'),
+            user.pk == product.owner.pk,
+        ]
+
+        # Если есть хотябы что-то одно(права или владелец карточки) - позволить удалить
+        if not any(perms_control):
             return HttpResponseForbidden(f'У Вас нет прав для удаления')
 
         product.delete()

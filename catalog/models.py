@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import CustomUser
+
 
 class Product(models.Model):
     """
@@ -14,6 +16,15 @@ class Product(models.Model):
                                  related_name='products')
     price = models.IntegerField(verbose_name='Цена')
     checkbox = models.BooleanField(verbose_name="Признак публикации", default=True)
+
+    owner = models.ForeignKey(
+        to=CustomUser,
+        on_delete=models.CASCADE,
+        verbose_name="Владелец карточки товара",
+        blank=True,
+        null=True,
+    )
+
     created_at = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Время последнего изменения', auto_now=True)
 

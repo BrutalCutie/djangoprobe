@@ -12,15 +12,14 @@
 <body>
 
     <div class="list-group align-items-end mb-4">
-    {% if user.is_authenticated %}
-
-
         <ul class="nav mt-2">
             <li class="nav-item">
                 <button class="btn" id="darkmode">🌗</button>
             </li>
+        {% if user.is_authenticated %}
+
             <li class="nav-item">
-                <h4 class="text-center">{{user.username}}</h4>
+                <h4 class="text-center">{{user.username}}({{user.pk}})</h4>
             </li>
             <li class="nav-item mx-4">
                 <form method="post" action="{% url 'users:logout' %}">
@@ -34,11 +33,7 @@
             </li>
             {% endif %}
 
-
-        </ul>
-
-    {% else %}
-        <ul class="nav">
+        {% else %}
             <li class="nav-item">
                 <a href="{% url 'users:login' %}" class="nav-link">Войти</a>
             </li>
