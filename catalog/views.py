@@ -112,10 +112,6 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().get(self, request, *args, **kwargs)
 
 
-
-
-
-
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'catalog/product_delete_confirm.html'
