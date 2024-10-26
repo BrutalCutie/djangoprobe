@@ -19,7 +19,7 @@
         {% if user.is_authenticated %}
 
             <li class="nav-item">
-                <h4 class="text-center">{{user.username}}({{user.pk}})</h4>
+                <h4 class="text-center">{{user.username}}#{{user.pk}}</h4>
             </li>
             <li class="nav-item mx-4">
                 <form method="post" action="{% url 'users:logout' %}">

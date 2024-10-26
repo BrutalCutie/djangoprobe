@@ -27,11 +27,6 @@ class ProductForm(forms.ModelForm):
         super(ProductForm, self).__init__(*args, **kwargs)
 
         for field_name in self.fields.keys():
-            # if field_name == 'checkbox':
-            #     self.fields[field_name].widget.attrs.update({
-            #         'class': 'form-check-input',
-            #         'id': 'is_active'
-            #     })
 
             if field_name == 'descr':
                 self.fields[field_name].widget.attrs.update({

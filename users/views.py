@@ -13,7 +13,7 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        # self.send_welcome_email(user)
+        self.send_welcome_email(user)
         return super().form_valid(form)
 
     @staticmethod
