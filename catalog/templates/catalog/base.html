@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/dark-mode.css">
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <title>{% block title %}{% endblock %}</title>
+
 </head>
 
 <body>
 
     <div class="list-group align-items-end mb-4">
-    {% if user.is_authenticated %}
-
         <ul class="nav mt-2">
             <li class="nav-item">
-                <h4 class="text-center">{{user.username}}</h4>
+                <button class="btn" id="darkmode">🌗</button>
+            </li>
+        {% if user.is_authenticated %}
+
+            <li class="nav-item">
+                <h4 class="text-center">{{user.username}}#{{user.pk}}</h4>
             </li>
             <li class="nav-item mx-4">
                 <form method="post" action="{% url 'users:logout' %}">
@@ -22,11 +27,13 @@
                     <button type="submit" class="nav-link">Выйти</button>
                 </form>
             </li>
+            {% if user.email == 'admin@admin.ru' %}
+            <li>
+                <a href="admin/" class="nav-link">Админка</a>
+            </li>
+            {% endif %}
 
-        </ul>
-
-    {% else %}
-        <ul class="nav">
+        {% else %}
             <li class="nav-item">
                 <a href="{% url 'users:login' %}" class="nav-link">Войти</a>
             </li>
@@ -113,6 +120,7 @@
 
 
     <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/dark-mode.js"></script>
 
 </body>
 </html>

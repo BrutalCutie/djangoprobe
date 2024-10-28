@@ -7,6 +7,11 @@
 {% if add_data.len_products > 0 %}
     <div class="row">
         <div class="m-5 text-center">
+            {% if 'product_all' in request.path %}
+                <a href="{% url 'catalog:home' %}" class="btn btn-outline-primary">Показать только активные товары</a>
+            {% else %}
+                <a href="{% url 'catalog:product_all' %}" class="btn btn-outline-primary">Показать все товары</a>
+            {% endif %}
             <h3>Вас могут заинтересовать эти товары</h3>
             <h1>↓</h1>
         </div>

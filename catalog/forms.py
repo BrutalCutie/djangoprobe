@@ -19,22 +19,16 @@ class ProductForm(forms.ModelForm):
 
     BAD_WORDS_STR = ", ".join(BAD_WORDS)
 
-
     class Meta:
         model = Product
-        fields = ["category", "name", "descr", "img", "price", 'checkbox']
+        fields = ["category", "name", "descr", "img", "price"]
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
 
         for field_name in self.fields.keys():
-            if field_name == 'checkbox':
-                self.fields[field_name].widget.attrs.update({
-                    'class': 'form-check-input',
-                    'id': 'is_active'
-                })
 
-            elif field_name == 'descr':
+            if field_name == 'descr':
                 self.fields[field_name].widget.attrs.update({
                     'class': 'form-control',
                     'rows': 3
@@ -70,10 +64,6 @@ class ProductForm(forms.ModelForm):
 
             if contains_badword:
                 break
-
-
-
-
 
 
 class CategoryForm(forms.ModelForm):

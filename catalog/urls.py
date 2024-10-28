@@ -6,8 +6,10 @@ app_name = CatalogConfig.name
 
 urlpatterns = [
     path('', views.ProductsListView.as_view(), name='home'),
+    path('product_all/', views.ProductsAllListView.as_view(), name='product_all'),
     path('contacts/', views.ContactsTemplateView.as_view(), name='contacts'),
     path('good/<int:pk>/', views.ProductDetailView.as_view(), name='good'),
+    path('good/<int:pk>/switch/', views.ProductPublicateSwitch.as_view(), name='publicationswitch'),
     path('thankYou/', views.SuccessTemplateView.as_view(), name='success'),
 
     path('product_new/', views.ProductCreateView.as_view(), name='product_new'),
@@ -21,4 +23,3 @@ urlpatterns = [
     path('category_list/', views.CategoryListView.as_view(), name='category_list'),
 
 ]
-
