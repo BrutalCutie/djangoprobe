@@ -1,11 +1,16 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.core.exceptions import PermissionDenied
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog.models import Product, Category
 from .forms import ProductForm, CategoryForm
+
+from django.core.cache import cache
+
+from .services import ProductService
 
 
 class ProductsListView(ListView):
@@ -21,6 +26,8 @@ class ProductsListView(ListView):
 
         context['add_data'] = {
             "len_products": len(Product.objects.all()),
+            "categories": Category.objects.all(),
+
                }
 
         return context
@@ -44,6 +51,7 @@ class ProductsAllListView(ListView):
         return context
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "catalog/good.html"

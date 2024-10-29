@@ -132,9 +132,7 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'  # Обязательные слеши в начале и конце
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL[1:-1])  # Передача папки без слешей
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -156,3 +154,10 @@ EMAIL_USE_SSL = eval(os.getenv('EMAIL_USE_SSL'))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        "LOCATION": 'redis://127.0.0.1:6379/1',
+    }
+}
