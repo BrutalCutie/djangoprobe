@@ -7,10 +7,28 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog.models import Product, Category
 from .forms import ProductForm, CategoryForm
-
 from django.core.cache import cache
+from .services import ProductService, CategoryService
 
-from .services import ProductService
+
+class CategoryProductsListView(ListView):
+    model = Product
+    template_name = 'catalog/cat_product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return ProductService.get_category_prods(self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['add_data'] = {
+            "len_products": len(Product.objects.filter(category=self.kwargs['pk'])),
+            "categories": CategoryService().get_categories(),
+            "category_name": Category.objects.get(pk=self.kwargs['pk']).name
+               }
+
+        return context
 
 
 class ProductsListView(ListView):
@@ -19,14 +37,19 @@ class ProductsListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.filter(checkbox=True)
+        queryset = cache.get('queryset')
+        if not queryset:
+            queryset = Product.objects.filter(checkbox=True)
+            cache.set('queryset', queryset, 60 * 5)
+        return queryset
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
 
         context['add_data'] = {
             "len_products": len(Product.objects.all()),
-            "categories": Category.objects.all(),
+            "categories": CategoryService().get_categories(),
 
                }
 

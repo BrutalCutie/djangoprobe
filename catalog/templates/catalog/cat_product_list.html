@@ -1,0 +1,64 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Список продуктов {{add_data.category_name}}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-2 h-100 mt-4">
+        <h2>Категории товаров</h2>
+        <div>
+            <a class="mt-4 nav-link" href="{% url 'catalog:home' %}">Все</a>
+        </div>
+            {% for category in add_data.categories %}
+                <div>
+                    <a class="mt-4 nav-link" href="{% url 'catalog:cat_product' category.pk %}">{{ category.name }}</a>
+                </div>
+            {% endfor %}
+
+
+    </div>
+    <div class="col-10">
+        <div class="row">
+            <div class="m-5 text-center">
+                {% if 'product_all' in request.path %}
+                    <a href="{% url 'catalog:home' %}" class="btn btn-outline-primary">Показать только активные товары</a>
+                {% else %}
+                    <a href="{% url 'catalog:product_all' %}" class="btn btn-outline-primary">Показать все товары</a>
+                {% endif %}
+                <h3>Вас могут заинтересовать эти товары</h3>
+                <h1>↓</h1>
+            </div>
+            {% if add_data.len_products > 0 %}
+            {% for product in products %}
+                <div class="col-3 mb-3">
+                    <div class="card h-100">
+                        {% if product.img.name == '' %}
+                            <img src="/media/photos/without_photo.png" alt="{{product.name}}" class="card-img-top">
+                        {% else %}
+                            <img src="/media/{{product.img}}" alt="{{product.name}}" class="card-img-top">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">{{product.price}} RUB</h6>
+                            <p class="card-text">{{product.descr|truncatechars:100}}</p>
+
+                        </div>
+                        <a href="{% url 'catalog:good' product.pk %}" class="btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">Подробно</a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <div class="text-center mt-5 mb-5">
+                <h1>Здесь должны быть товары, но по какой-то причине они отсутствуют 🤔</h1>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

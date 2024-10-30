@@ -9,6 +9,9 @@ urlpatterns = [
     path('product_all/', views.ProductsAllListView.as_view(), name='product_all'),
     path('contacts/', views.ContactsTemplateView.as_view(), name='contacts'),
     path('good/<int:pk>/', views.ProductDetailView.as_view(), name='good'),
+
+    path('category_products/<int:pk>/', views.CategoryProductsListView.as_view(), name='cat_product'),
+
     path('good/<int:pk>/switch/', views.ProductPublicateSwitch.as_view(), name='publicationswitch'),
     path('thankYou/', views.SuccessTemplateView.as_view(), name='success'),
 
@@ -21,5 +24,6 @@ urlpatterns = [
     path('category_delete/<int:pk>/', views.CategoryDeleteView.as_view(), name='category_delete'),
     path('category_detail/<int:pk>/', views.CategoryDetailView.as_view(), name='category_detail'),
     path('category_list/', views.CategoryListView.as_view(), name='category_list'),
+
 
 ]
