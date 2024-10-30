@@ -1,0 +1,172 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 58,
+    "fields": {
+        "name": "Антифриз",
+        "descr": "1.0л G-4",
+        "img": "photos/antifreeze.jpeg",
+        "category": 17,
+        "price": 99,
+        "checkbox": true,
+        "owner": 8,
+        "created_at": "2024-10-30T11:29:24.696Z",
+        "updated_at": "2024-10-30T11:29:24.701Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 59,
+    "fields": {
+        "name": "Глушитель Lanos 2008",
+        "descr": "Подойдёт, мамой клинусь",
+        "img": "photos/exhaust.jpg",
+        "category": 17,
+        "price": 2499,
+        "checkbox": true,
+        "owner": 8,
+        "created_at": "2024-10-30T11:31:27.893Z",
+        "updated_at": "2024-10-30T11:31:27.898Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 60,
+    "fields": {
+        "name": "Торт шоколадный 1.2кг",
+        "descr": "",
+        "img": "photos/tort.jpg",
+        "category": 13,
+        "price": 2999,
+        "checkbox": true,
+        "owner": 9,
+        "created_at": "2024-10-30T11:33:33.993Z",
+        "updated_at": "2024-10-30T11:33:33.999Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 61,
+    "fields": {
+        "name": "Мишки Гамми",
+        "descr": "Haribo",
+        "img": "photos/gummy.jpg",
+        "category": 13,
+        "price": 149,
+        "checkbox": true,
+        "owner": 9,
+        "created_at": "2024-10-30T11:34:32.626Z",
+        "updated_at": "2024-10-30T11:34:32.633Z"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 13,
+    "fields": {
+        "name": "Еда",
+        "descr": "Категория еды"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 16,
+    "fields": {
+        "name": "Прочее",
+        "descr": "Всё что не попало в другие категории"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 17,
+    "fields": {
+        "name": "Авто",
+        "descr": ""
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$FY42X1zEqCq2dE71Ze5q2t$5+6iqfMZzWOYUR4ClfrYESikrLkRIYVK9pJso0LAD4A=",
+        "last_login": "2024-10-26T04:14:21.004Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-10-22T17:41:11.747Z",
+        "email": "admin@admin.ru",
+        "phone_number": null,
+        "avatar": "",
+        "country": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$SUXylcEKwUbUYPTsT7DXD8$PU4zzBBnMybxfTNn3kmKsli+ogviNOldNm/5d/bb4l4=",
+        "last_login": "2024-10-30T11:26:59.891Z",
+        "is_superuser": false,
+        "username": "Moder",
+        "first_name": "Никита",
+        "last_name": "Вакуленко",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-24T12:16:11Z",
+        "email": "tiken14@live.com",
+        "phone_number": "89810155206",
+        "avatar": "",
+        "country": "Россия",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$kBQdd25hzI3CzjQn67BYUa$jAQ6sWu/DwrccMPSahjLO+XNErHaoYPSTPKnbowCP5g=",
+        "last_login": "2024-10-30T11:27:24.717Z",
+        "is_superuser": false,
+        "username": "User",
+        "first_name": "Nik",
+        "last_name": "var",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-25T04:22:02.831Z",
+        "email": "tiken15@live.com",
+        "phone_number": "1414234234",
+        "avatar": "",
+        "country": "Estonia",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.customuser",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$lkl7euJa6tPm4eKYJZ7Ne9$GdfnFSUKGtTbCG/2rdtrABCmv1oHwjCj+KhCufwnMdg=",
+        "last_login": "2024-10-30T11:31:56.342Z",
+        "is_superuser": false,
+        "username": "User2",
+        "first_name": "Nik",
+        "last_name": "var",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-25T14:52:18.642Z",
+        "email": "tiken16@live.com",
+        "phone_number": "1414234234",
+        "avatar": "",
+        "country": "Estonia",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
