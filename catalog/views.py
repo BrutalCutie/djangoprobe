@@ -1,11 +1,34 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.core.exceptions import PermissionDenied
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from catalog.models import Product, Category
 from .forms import ProductForm, CategoryForm
+from django.core.cache import cache
+from .services import ProductService, CategoryService
+
+
+class CategoryProductsListView(ListView):
+    model = Product
+    template_name = 'catalog/cat_product_list.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        return ProductService.get_category_prods(self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['add_data'] = {
+            "len_products": len(Product.objects.filter(category=self.kwargs['pk'])),
+            "categories": CategoryService().get_categories(),
+            "category_name": Category.objects.get(pk=self.kwargs['pk']).name
+               }
+
+        return context
 
 
 class ProductsListView(ListView):
@@ -14,36 +37,32 @@ class ProductsListView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.objects.filter(checkbox=True)
+        queryset = cache.get('queryset')
+        if not queryset:
+            queryset = Product.objects.filter(checkbox=True)
+            cache.set('queryset', queryset, 60 * 5)
+        return queryset
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
 
         context['add_data'] = {
             "len_products": len(Product.objects.all()),
+            "categories": CategoryService().get_categories(),
+
                }
 
         return context
 
 
-class ProductsAllListView(ListView):
-    model = Product
-    template_name = 'catalog/product_list.html'
-    context_object_name = 'products'
+class ProductsAllListView(ProductsListView):
 
     def get_queryset(self):
         return Product.objects.all()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
 
-        context['add_data'] = {
-            "len_products": len(Product.objects.all()),
-               }
-
-        return context
-
-
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = "catalog/good.html"
